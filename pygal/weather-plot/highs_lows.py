@@ -24,13 +24,19 @@ with open(filename) as f:
     # extracting high temperature
     dates, highs, lows = [], [], []
     for row in reader:  # loop through all rows
-        date = datetime.strptime(row[0], '%Y-%m-%d') # get the first item (date) of every row
-        dates.append(date)
 
-        highs.append(int(row[1]))    # get the second item (high temperature) of every row
+        # error handling
+        try:
+            date = datetime.strptime(row[0], '%Y-%m-%d') # get the first item (date) of every row
+            high = int(row[1])
+            low = int(row[3])
+        except ValueError:
+            print(date, 'missing data')
+        else:
+            dates.append(date)
+            highs.append(high)  # get the second item (high temperature) of every row
+            lows.append(low)
 
-        low = int(row[3])
-        lows.append(low)
 
     print(highs)
 
