@@ -1,6 +1,6 @@
 # visualize Die class
 import pygal
-from die import Die
+from pygal.dice.die import Die
 
 die = Die()
 

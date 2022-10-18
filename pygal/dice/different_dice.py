@@ -1,5 +1,5 @@
 # one 6D die and one 1-D die
-from die import Die
+from pygal.dice.die import Die
 import pygal
 
 die_1 = Die()
