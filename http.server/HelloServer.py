@@ -11,6 +11,7 @@ class HelloHandler(BaseHTTPRequestHandler):
 
         # response body
         # wfile: writeable file
+        # enocde string into byte object
         self.wfile.write("hello, http!\n".encode())
 
 
