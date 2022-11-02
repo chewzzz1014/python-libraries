@@ -38,6 +38,7 @@ class MessageHandler(BaseHTTPRequestHandler):
         self.send_header('Content-type', 'text/plain; charset=utf-8')
         self.end_headers()
         self.wfile.write(message.encode())
+    
 
 if __name__ == '__main__':
     server_address = ('', 8000)
