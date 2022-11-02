@@ -20,6 +20,8 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import parse_qs
 
+memory = []
+
 form = '''
 <!DOCTYPE html>
   <title>Message Board</title>
@@ -40,24 +42,29 @@ class MessageHandler(BaseHTTPRequestHandler):
         # 2. Read the correct amount of data from the request.
         data = self.rfile.read(length).decode()
 
-        # 3. Extract the "message" field from the request data.
+        # parse the message
         message = parse_qs(data)["message"][0]
+        # Escape HTML tags in the message so users can't break world+dog.
+        message = message.replace("<", "&lt;")
 
-        # Send the "message" field back as the response.
-        self.send_response(200)
-        self.send_header('Content-type', 'text/plain; charset=utf-8')
+        # Store it in memory.
+        memory.append(message)
+
+        # redirect back to root page (status code 303)
+        self.send_response(303)
+        self.send_header("Location", "/")
         self.end_headers()
-        self.wfile.write(message.encode())
     
     def do_GET(self):
         # send 200 OK response
         self.send_response(200)
 
         # send headers
-        self.send_header("Content-type", "text/html; charset-utf-8")
+        self.send_header("Content-type", "text/html; charset=utf-8")
         self.end_headers()
 
-        # response body
+        # response body: send the form with the messages in it
+        mesg = form.format("\n".join(memory))
         self.wfile.write(form.encode())
 
 if __name__ == '__main__':
