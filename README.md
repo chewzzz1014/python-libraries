@@ -1,4 +1,5 @@
 # python-libraries
+Learning python libraries.
 
 Learning Resources:
 - Python Crash Course, 2nd Edition: A Hands-On, Project-Based Introduction to Programming by Eric Matthes
